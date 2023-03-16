@@ -1,0 +1,14 @@
+# User-defined files
+.history/
+.DS_Store
+*/.DS_Store
+stats/
+data/
+data
+cleargrasp/
+omniverse_v3/
+stats/
+tb_log/
+transcg_data/
+.vscode/
+assets/

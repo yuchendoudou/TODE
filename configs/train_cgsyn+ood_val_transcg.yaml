@@ -1,0 +1,73 @@
+# script id: 2
+"model":
+  "type": "tode"
+  "params":
+    "lambda_val": 1
+    "res": True
+    
+"optimizer":
+  "type": "AdamW"
+  "params":
+    "lr": 0.001
+
+"lr_scheduler":
+  "type": "MultiStepLR"
+  "params":
+    "milestones": [20, 30, 35]
+    "gamma": 0.1
+
+"dataset":
+  "train":
+    - "type": "cleargrasp-syn"
+      "data_dir": "cleargrasp"
+      "image_size": !!python/tuple [320, 240]
+      "use_augmentation": True
+      "rgb_augmentation_probability": 0.8
+      "use_depth_augmentation": True
+      "depth_min": 0.0
+      "depth_max": 10.0
+    - "type": "omniverse"
+      "data_dir": "omniverse_v3/train"
+      "image_size": !!python/tuple [320, 240]
+      "use_augmentation": True
+      "rgb_augmentation_probability": 0.8
+      "use_depth_augmentation": True
+      "depth_min": 0.0
+      "depth_max": 10.0
+  "test":
+    "type": "transcg"
+    "data_dir": "transcg_data"
+    "image_size": !!python/tuple [320, 240]
+    "use_augmentation": False
+    "depth_min": 0.0
+    "depth_max": 10.0
+    "depth_norm": 1.0
+
+"dataloader":
+  "num_workers": 48
+  "shuffle": True
+  "drop_last": True
+
+"trainer":
+  "batch_size": 16
+  "test_batch_size": 1
+  "multigpu": False
+  "max_epoch": 40  
+  "criterion":
+    "type": "custom_masked_l1_loss"
+    "epsilon": 0.00000001
+    "combined_smooth": True
+    "combined_beta": 0.1
+
+"metrics":
+  "types": ["MaskedMSE", "MaskedRMSE", "MaskedREL", "MaskedMAE", "MaskedThreshold@1.05", "MaskedThreshold@1.10", "MaskedThreshold@1.25"]
+  "epsilon": 0.00000001
+  "depth_scale": 1.0
+
+"stats":
+  "stats_dir": "stats"
+  "stats_exper": "train-cgsyn-ood-val-transcg"
+
+"tb_log":
+  "stats_dir": "tb_log"
+  "stats_exper": "train-cgsyn-ood-val-transcg"
