@@ -96,7 +96,7 @@ class Inferencer(object):
         depth = torch.FloatTensor(depth).to(self.device).unsqueeze(0)
         with torch.no_grad():
             time_start = perf_counter()
-            _, depth_res = self.model(rgb, depth)
+            depth_res = self.model(rgb, depth)
             time_end = perf_counter()
         if self.with_info:
             self.logger.info("Inference finished, time: {:.4f}s.".format(time_end - time_start))

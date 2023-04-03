@@ -457,7 +457,7 @@ class ConfigBuilder(object):
         """
         if inference_params is None:
             inference_params = self.inference_params
-        return inference_params.get('checkpoint_path', os.path.join('checkpoint', 'checkpoint.tar'))
+        return inference_params.get('checkpoint_path', os.path.join('checkpoints', 'checkpoint.tar'))
     
     def get_inference_cuda_id(self, inference_params = None):
         """
